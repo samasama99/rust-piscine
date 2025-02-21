@@ -2,10 +2,9 @@ pub fn initials(names: Vec<&str>) -> Vec<String> {
     names
         .into_iter()
         .map(|name| name.chars().filter(|c| c.is_uppercase()))
-        .map(|parts| {
-            parts
-                .map(|initial| initial.to_string() + ".")
-                .reduce(|res, initial| format!("{res} {initial}"))
+        .map(|is| is.map(|initial| initial.to_string() + "."))
+        .map(|is| {
+            is.reduce(|res, initial| format!("{res} {initial}"))
                 .unwrap()
         })
         .collect()
