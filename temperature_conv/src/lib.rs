@@ -1,11 +1,14 @@
+type Celsius = f64; 
+type Fahrenheit = f64; 
+
 /* formula: (32°F − 32) × 5/9 = 0°C */
-pub fn fahrenheit_to_celsius(f: f64) -> f64 {
-    (f - 32f64) * 5f64 / 9f64
+pub fn fahrenheit_to_celsius(f: Fahrenheit) -> Celsius {
+    (f - 32.) / 1.8
 }
 
 /* formula: (0°C × 9/5) + 32 = 32°F    */
-pub fn celsius_to_fahrenheit(c: f64) -> f64 {
-    c * 9f64 / 5f64 + 32f64
+pub fn celsius_to_fahrenheit(c: Celsius) -> Fahrenheit {
+    c * 1.8 + 32.
 }
 
 #[cfg(test)]
@@ -35,9 +38,3 @@ mod tests {
         assert!(approx_eq(celsius_to_fahrenheit(37.0), 98.6));
     }
 }
-
-// - tests::test_f_to_c stdout ----
-// F = -6.666666666666667°C
-// ead 'tests::test_f_to_c' panicked at src/main.rs:22:9:
-// ertion failed: eql(fahrenheit_to_celsius(temp_f), -6.666666666666666)
-// e: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
