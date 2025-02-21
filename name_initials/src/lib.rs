@@ -1,10 +1,10 @@
 pub fn initials(names: Vec<&str>) -> Vec<String> {
     names
-        .iter()
+        .into_iter()
         .map(|name| name.split(" "))
         .map(|parts| {
             parts
-                .map(|part| part.chars().next().unwrap())
+                .map(|part| part.chars().nth(0).unwrap())
                 .map(|initial| initial.to_string() + ".")
                 .reduce(|res, initial| format!("{res} {initial}"))
                 .unwrap()
