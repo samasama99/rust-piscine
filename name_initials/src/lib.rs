@@ -6,8 +6,8 @@ pub fn initials(names: Vec<&str>) -> Vec<String> {
             parts
                 .map(|part| part.chars().next().unwrap())
                 .map(|initial| initial.to_string() + ".")
-                .collect::<Vec<String>>()
-                .join(" ")
+                .reduce(|res, initial| format!("{res} {initial}"))
+                .unwrap()
         })
         .collect()
 }
