@@ -17,7 +17,8 @@
 
 use core::panic;
 use std::{
-    borrow::Borrow, time::{Duration, SystemTime}, u128
+    time::{Duration, SystemTime},
+    u128,
 };
 
 fn gen_random() -> u128 {
@@ -62,7 +63,7 @@ impl Suit {
 
 impl Rank {
     pub fn random() -> Rank {
-        Rank::translate(((gen_random() % 14) + 1) as u8)
+        Rank::translate(((gen_random() % 13) + 1) as u8)
     }
 
     pub fn translate(value: u8) -> Rank {
@@ -83,14 +84,18 @@ pub struct Card {
     pub rank: Rank,
 }
 
+pub fn winner_card(card: Card) -> bool {
+    card == Card {
+        suit: Suit::Spade,
+        rank: Rank::Ace,
+    }
+}
 
-pub fn winner_card<T: Borrow<Card>>(card: T) -> bool {
-    let card = card.borrow();
-    *card
-        == Card {
-            suit: Suit::Spade,
-            rank: Rank::Ace,
-        }
+pub fn gen_card() -> Card {
+    Card {
+        rank: Rank::random(),
+        suit: Suit::random(),
+    }
 }
 
 #[cfg(test)]
@@ -99,19 +104,11 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let your_card = Card {
-            rank: Rank::random(),
-            suit: Suit::random(),
-        };
-
-        println!("Your card is {:?}", your_card);
-
-        if winner_card(&your_card) {
-            println!("You are the winner!");
-        }
-
-        if winner_card(your_card) {
-            println!("You are the winner!");
+        loop {
+            if winner_card(gen_card()) {
+                println!("You are the winner!");
+                break;
+            }
         }
     }
 }
