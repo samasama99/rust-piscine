@@ -15,28 +15,114 @@
 //     Finally define the function winner_card which returns true if the card passed as an argument is an ace of spades.
 //
 
-use core::panic;
-use std::{
-    time::{Duration, SystemTime},
-    u128,
-};
+// use core::panic;
+// use std::{
+//     time::{Duration, SystemTime},
+//     u128,
+// };
+// 
+// fn gen_random() -> u128 {
+//     SystemTime::now()
+//         .duration_since(SystemTime::UNIX_EPOCH)
+//         .unwrap_or(Duration::from_secs(0))
+//         .as_nanos()
+// }
+// 
+// #[derive(Debug, PartialEq, Eq, Clone, Copy)]
+// pub enum Suit {
+//     Heart,
+//     Diamond,
+//     Spade,
+//     Club,
+// }
+// 
+// #[derive(Debug, PartialEq, Eq, Clone, Copy)]
+// pub enum Rank {
+//     Ace,
+//     King,
+//     Queen,
+//     Jack,
+//     Number(u8),
+// }
+// 
+// impl Suit {
+//     pub fn random() -> Suit {
+//         Suit::translate((gen_random() % 4) as u8)
+//     }
+// 
+//     pub fn translate(value: u8) -> Suit {
+//         match value {
+//             0 => Suit::Heart,
+//             1 => Suit::Diamond,
+//             2 => Suit::Spade,
+//             3 => Suit::Club,
+//             _ => panic!("impossible"),
+//         }
+//     }
+// }
+// 
+// impl Rank {
+//     pub fn random() -> Rank {
+//         Rank::translate(((gen_random() % 13) + 1) as u8)
+//     }
+// 
+//     pub fn translate(value: u8) -> Rank {
+//         match value {
+//             1 => Rank::Ace,
+//             x @ 2..=10 => Rank::Number(x),
+//             11 => Rank::Jack,
+//             12 => Rank::Queen,
+//             13 => Rank::King,
+//             _ => panic!("impossible"),
+//         }
+//     }
+// }
+// 
+// #[derive(Debug, PartialEq, Eq, Clone, Copy)]
+// pub struct Card {
+//     pub suit: Suit,
+//     pub rank: Rank,
+// }
+// 
+// pub fn winner_card(card: Card) -> bool {
+//     card == Card {
+//         suit: Suit::Spade,
+//         rank: Rank::Ace,
+//     }
+// }
+// 
+// pub fn gen_card() -> Card {
+//     Card {
+//         rank: Rank::random(),
+//         suit: Suit::random(),
+//     }
+// }
+// 
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+// 
+//     #[test]
+//     fn it_works() {
+//         loop {
+//             if winner_card(gen_card()) {
+//                 println!("You are the winner!");
+//                 break;
+//             }
+//         }
+//     }
+// }
 
-fn gen_random() -> u128 {
-    SystemTime::now()
-        .duration_since(SystemTime::UNIX_EPOCH)
-        .unwrap_or(Duration::from_secs(0))
-        .as_nanos()
-}
 
-#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+use rand::Rng;
+#[derive(Debug, PartialEq)]
 pub enum Suit {
     Heart,
     Diamond,
     Spade,
     Club,
 }
-
-#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+#[derive(Debug, PartialEq)]
 pub enum Rank {
     Ace,
     King,
@@ -47,68 +133,65 @@ pub enum Rank {
 
 impl Suit {
     pub fn random() -> Suit {
-        Suit::translate((gen_random() % 4) as u8)
+        let mut random = rand::thread_rng();
+        let i: i32 = random.gen_range(1..5);
+        match i {
+            1 => Suit::Club,
+            2 => Suit::Heart,
+            3 => Suit::Spade,
+            _ => Suit::Diamond,
+        }
     }
 
     pub fn translate(value: u8) -> Suit {
         match value {
-            0 => Suit::Heart,
-            1 => Suit::Diamond,
-            2 => Suit::Spade,
-            3 => Suit::Club,
-            _ => panic!("impossible"),
+            1 => Suit::Heart,
+            2 => Suit::Diamond,
+            3 => Suit::Spade,
+            4 => Suit::Club,
+            _ => panic!("invalid suit!!"),
         }
     }
 }
 
 impl Rank {
     pub fn random() -> Rank {
-        Rank::translate(((gen_random() % 13) + 1) as u8)
+        let mut random = rand::thread_rng();
+        let i: i32 = random.gen_range(1..14);
+        match i {
+            1 => Rank::Ace,
+            11 => Rank::Jack,
+            12 => Rank::Queen,
+            13 => Rank::King,
+            i => Rank::Number(i as u8),
+        }
     }
 
     pub fn translate(value: u8) -> Rank {
         match value {
             1 => Rank::Ace,
-            x @ 2..=10 => Rank::Number(x),
             11 => Rank::Jack,
             12 => Rank::Queen,
             13 => Rank::King,
-            _ => panic!("impossible"),
+            value if value >= 2 && value < 11 => Rank::Number(value),
+            _ => panic!("invalid Rank!!"),
         }
     }
 }
-
-#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+#[derive(Debug, PartialEq)]
 pub struct Card {
     pub suit: Suit,
     pub rank: Rank,
 }
 
-pub fn winner_card(card: Card) -> bool {
-    card == Card {
-        suit: Suit::Spade,
-        rank: Rank::Ace,
+pub fn winner_card(card: &Card) -> bool {
+    if card
+        == (&Card {
+            suit: Suit::Spade,
+            rank: Rank::Ace,
+        })
+    {
+        return true;
     }
-}
-
-pub fn gen_card() -> Card {
-    Card {
-        rank: Rank::random(),
-        suit: Suit::random(),
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        loop {
-            if winner_card(gen_card()) {
-                println!("You are the winner!");
-                break;
-            }
-        }
-    }
+    false
 }
