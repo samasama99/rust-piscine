@@ -33,10 +33,11 @@ impl Circle {
         self.radius * 2.0
     }
     // π × (diam/2)2
-    fn area(&self) -> f64 {
+    pub fn area(&self) -> f64 {
         PI  * (self.diameter() / 2.0).powi(2)
     }
-    fn intersect(&self, c: Circle) -> bool {
+
+    pub fn intersect(&self, c: Circle) -> bool {
         self.center.distance(c.center) <= self.radius + c.radius
     }
 }
@@ -46,7 +47,7 @@ pub struct Point(pub f64, pub f64);
 
 impl Point {
     // d=√((x2 – x1)² + (y2 – y1)²)
-    fn distance(&self, p: Point) -> f64 {
+    pub fn distance(&self, p: Point) -> f64 {
         ((self.1 - p.1).powi(2) + (self.1 - p.1).powi(2)).sqrt()
     }
 }
