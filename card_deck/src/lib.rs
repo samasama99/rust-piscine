@@ -28,7 +28,7 @@ fn gen_random() -> u128 {
         .as_nanos()
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum Suit {
     Heart,
     Diamond,
@@ -36,7 +36,7 @@ pub enum Suit {
     Club,
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum Rank {
     Ace,
     King,
@@ -78,14 +78,14 @@ impl Rank {
     }
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub struct Card {
     pub suit: Suit,
     pub rank: Rank,
 }
 
-pub fn winner_card(card: &Card) -> bool {
-    *card
+pub fn winner_card(card: Card) -> bool {
+    card
         == Card {
             suit: Suit::Spade,
             rank: Rank::Ace,
@@ -105,7 +105,7 @@ mod tests {
 
         println!("Your card is {:?}", your_card);
 
-        if winner_card(&your_card) {
+        if winner_card(your_card) {
             println!("You are the winner!");
         }
     }
