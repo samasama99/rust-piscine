@@ -25,7 +25,7 @@ pub fn horizontal(player: char, table: [[char; 3]; 3]) -> bool {
     table
         .iter()
         .map(|h| h.iter().all(|&c| c == player))
-        .all(|r| r)
+        .any(|r| r)
 }
 
 pub fn vertical(player: char, table: [[char; 3]; 3]) -> bool {
