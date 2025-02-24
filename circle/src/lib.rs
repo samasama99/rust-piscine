@@ -48,7 +48,7 @@ pub struct Point(pub f64, pub f64);
 impl Point {
     // d=√((x2 – x1)² + (y2 – y1)²)
     pub fn distance(&self, p: Point) -> f64 {
-        ((self.1 - p.1).powi(2) + (self.1 - p.1).powi(2)).sqrt()
+        ((self.1 - p.1).powi(2) + (self.0 - p.0).powi(2)).sqrt()
     }
 }
 
