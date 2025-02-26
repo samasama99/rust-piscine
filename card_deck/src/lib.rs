@@ -105,7 +105,9 @@ mod tests {
     #[test]
     fn it_works() {
         loop {
-            if winner_card(gen_card()) {
+            let card = gen_card();
+            println!("draw card: {card:#?}");
+            if winner_card(card) {
                 println!("You are the winner!");
                 break;
             }
