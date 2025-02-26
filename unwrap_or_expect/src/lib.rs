@@ -22,22 +22,22 @@ pub enum Security {
 }
 
 pub fn fetch_data(server: Result<String, String>, security_level: Security) -> String {
-    match (server, security_level) {
-        (_, Security::Unknown) => panic!(""),
-        (_, Security::High) => panic!("ERROR: program stops"),
-        (Ok(url), Security::Medium | Security::Low) => url,
-        (Err(_), Security::Medium) => "WARNING: check the server".to_string(),
-        (Err(url), Security::Low) => format!("Not found: {url}").to_string(),
-        (Ok(url) | Err(url), Security::BlockServer) => panic!("{}", url),
-    }
-    // match security_level {
-    //     Security::Unknown => panic!(""),
-    //     Security::High => panic!("ERROR: program stops"),
-    //     Security::Medium | Security::Low if server.is_ok() => server.unwrap(),
-    //     Security::Medium => server.unwrap_or("WARNING: check the server".to_owned()),
-    //     Security::Low => format!("Not found: {}", server.unwrap_err()).to_string(),
-    //     Security::BlockServer => panic!("{}", server.unwrap_err()),
+    // match (server, security_level) {
+    //     (_, Security::Unknown) => panic!(""),
+    //     (_, Security::High) => panic!("ERROR: program stops"),
+    //     (Ok(url), Security::Medium | Security::Low) => url,
+    //     (Err(_), Security::Medium) => "WARNING: check the server".to_string(),
+    //     (Err(url), Security::Low) => format!("Not found: {url}").to_string(),
+    //     (Ok(url) | Err(url), Security::BlockServer) => panic!("{}", url),
     // }
+    match security_level {
+        Security::Unknown => server.unwrap(),
+        Security::High => panic!("ERROR: program stops"),
+        Security::Medium | Security::Low if server.is_ok() => server.unwrap(),
+        Security::Medium => server.unwrap_or("WARNING: check the server".to_owned()),
+        Security::Low => format!("Not found: {}", server.unwrap_err()).to_string(),
+        Security::BlockServer => panic!("{}", server.unwrap_err()),
+    }
 }
 
 #[cfg(test)]
