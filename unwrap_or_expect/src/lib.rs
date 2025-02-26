@@ -32,7 +32,7 @@ pub fn fetch_data(server: Result<String, String>, security_level: Security) -> S
     // }
     match security_level {
         Security::Unknown => server.unwrap(),
-        Security::High => panic!("ERROR: program stops"),
+        Security::High => server.expect("ERROR: program stops"),
         Security::Medium | Security::Low if server.is_ok() => server.unwrap(),
         Security::Medium => server.unwrap_or("WARNING: check the server".to_owned()),
         Security::Low => format!("Not found: {}", server.unwrap_err()).to_string(),
