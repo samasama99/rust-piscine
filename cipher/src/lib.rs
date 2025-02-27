@@ -32,7 +32,7 @@ fn cipher_char(c: char) -> char {
 }
 
 pub fn cipher(original: &str, ciphered: &str) -> Option<Result<bool, CipherError>> {
-    if original.trim().is_empty() {
+    if original.trim().is_empty() || ciphered.trim().is_empty() {
         return None;
     }
     let valid_cipher = original.chars().map(cipher_char).collect::<String>();
