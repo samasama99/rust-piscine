@@ -1,7 +1,8 @@
 [package]
-name = "card_deck"
+name = "geometrical_shapes"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-rand = "0.8"
+raster = "0.2.0"
+rand = "0.9.0"
