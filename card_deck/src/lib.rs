@@ -47,15 +47,15 @@ pub enum Rank {
 
 impl Suit {
     pub fn random() -> Suit {
-        Suit::translate((gen_random() % 4) as u8)
+        Suit::translate(((gen_random() % 4) + 1) as u8)
     }
 
     pub fn translate(value: u8) -> Suit {
         match value {
-            0 => Suit::Heart,
-            1 => Suit::Diamond,
-            2 => Suit::Spade,
-            3 => Suit::Club,
+            1 => Suit::Heart,
+            2 => Suit::Diamond,
+            3 => Suit::Spade,
+            4 => Suit::Club,
             _ => panic!("impossible"),
         }
     }
