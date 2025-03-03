@@ -7,7 +7,7 @@
 // Expected Function
 
 pub fn is_permutation(s1: &str, s2: &str) -> bool {
-    s1.chars().all(|c| s2.contains(c))
+    s1.len() == s2.len() && s1.chars().all(|c| s2.contains(c))
 }
 
 #[cfg(test)]
