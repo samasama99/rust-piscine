@@ -9,20 +9,20 @@ pub fn bubble_sort(arr: &mut [i32]) {
     let end = arr.len() - 1;
     for i in 0..arr.len() {
         let current = end - i;
-        let max = {
+        let (index, max) = {
             let mut index = 0;
             let mut max = i32::MIN;
-            for i in 0..current {
-                if arr[i] > max {
-                    index = i;
-                    max = arr[i];
+            for j in 0..=current {
+                if arr[j] > max {
+                    index = j;
+                    max = arr[j];
                 }
             }
             (index, max)
         };
         let tmp = arr[current];
-        arr[current] = max.1;
-        arr[max.0] = tmp;
+        arr[current] = max;
+        arr[index] = tmp;
     }
 }
 
