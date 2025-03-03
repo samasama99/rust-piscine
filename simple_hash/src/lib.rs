@@ -13,7 +13,7 @@
 
 use std::collections::{HashMap, HashSet};
 
-pub fn word_frequency_counter<'a>(words: &'a Vec<&'a str>) -> HashMap<&'a str, usize> {
+pub fn word_frequency_counter<'a>(words: &'a [&'a str]) -> HashMap<&'a str, usize> {
     words.into_iter().fold(HashMap::new(), |mut acc, word| {
         acc.entry(word)
             .and_modify(|count| {
