@@ -1,5 +1,5 @@
 use std::ops::Not;
-use chrono::{Datelike, NaiveDate, Weekday};
+use chrono::{Datelike, NaiveDate, Weekday as wd};
 
 // If the year is evenly divisible by 4, go to step 2. Otherwise, go to step 5.
 // If the year is evenly divisible by 100, go to step 3. Otherwise, go to step 4.
@@ -24,7 +24,7 @@ pub fn is_leap_year(year: u64) -> bool {
 }
 
 const MIDDLE_DAY: u32 = 185;
-pub fn middle_day(year: u64) -> Option<Weekday> {
+pub fn middle_day(year: u64) -> Option<wd> {
     is_leap_year(year).not()
         .then(|| NaiveDate::from_yo_opt(year as i32, MIDDLE_DAY))
         .flatten()
