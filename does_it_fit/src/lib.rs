@@ -1,7 +1,7 @@
 use crate::areas_volumes::{GeometricalShapes, GeometricalVolumes};
 use std::f32::consts::PI;
 
-mod areas_volumes;
+pub mod areas_volumes;
 
 // Create area_fit.
 // It should return true if the geometric shape can fit inside the rectangular area as many times
