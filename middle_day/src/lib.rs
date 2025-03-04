@@ -24,7 +24,7 @@ pub fn is_leap_year(year: u64) -> bool {
     }
 }
 
-const MIDDLE_DAY: u32 = 185;
+const MIDDLE_DAY: u32 = 183;
 pub fn middle_day(year: u64) -> Option<wd> {
     is_leap_year(year).not()
         .then(|| NaiveDate::from_yo_opt(year as i32, MIDDLE_DAY))
