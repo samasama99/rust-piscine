@@ -15,7 +15,7 @@ fn convert_to_kcal(calories: Vec<String>) -> Vec<f64> {
     for cal in calories {
         if cal.contains("kJ") {
             let value: f64 = cal.trim_end_matches("kJ").parse().unwrap();
-            let kcal = value / 4.184;
+            let kcal = value / 4.18;
             kcal_values.push(kcal);
         } else if cal.contains("kcal") {
             let value: f64 = cal.trim_end_matches("kcal").parse().unwrap();
