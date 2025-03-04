@@ -1,3 +1,7 @@
+use crate::areas_volumes::{
+    circle_area, cone_volume, cube_volume, parallelepiped_volume, rectangle_area, sphere_volume,
+    square_area, triangle_area, triangular_pyramid_volume,
+};
 pub use crate::areas_volumes::{GeometricalShapes, GeometricalVolumes};
 pub use std::f32::consts::PI;
 
@@ -31,10 +35,10 @@ pub fn area_fit(
 ) -> bool {
     let rect_area = x * y;
     match objects {
-        GeometricalShapes::Square => (a * a) * times <= rect_area,
-        GeometricalShapes::Circle => (PI * a.pow(2) as f32) as usize * times <= rect_area,
-        GeometricalShapes::Rectangle => a * b * times <= rect_area,
-        GeometricalShapes::Triangle => (a * b / 2) * times <= rect_area,
+        GeometricalShapes::Square => square_area(a) * times <= rect_area,
+        GeometricalShapes::Circle => circle_area(a) as usize * times <= rect_area,
+        GeometricalShapes::Rectangle => rectangle_area(a, b) * times <= rect_area,
+        GeometricalShapes::Triangle => triangle_area(a, b) as usize * times <= rect_area,
     }
 }
 
@@ -42,7 +46,7 @@ pub fn volume_fit(
     x: usize,
     y: usize,
     z: usize,
-    objects: areas_volumes::GeometricalVolumes,
+    objects: GeometricalVolumes,
     times: usize,
     a: usize,
     b: usize,
@@ -50,11 +54,11 @@ pub fn volume_fit(
 ) -> bool {
     let box_vol = x * y * z;
     match objects {
-        GeometricalVolumes::Cube => a.pow(3) * times <= box_vol,
-        GeometricalVolumes::Sphere => (4.0 / 3.0 * PI) as usize * a.pow(3) * times <= box_vol,
-        GeometricalVolumes::Cone => (1.0 / 3.0 * PI) as usize * a * b.pow(2) * times <= box_vol,
-        GeometricalVolumes::Pyramid => (a * b * c * 1 / 3) * times <= box_vol,
-        GeometricalVolumes::Parallelepiped => a * b * c * times <= box_vol,
+        GeometricalVolumes::Cube => cube_volume(a) as usize * times <= box_vol,
+        GeometricalVolumes::Sphere => sphere_volume(a) as usize * times <= box_vol,
+        GeometricalVolumes::Cone => cone_volume(a, b) as usize * times <= box_vol,
+        GeometricalVolumes::Pyramid => triangular_pyramid_volume(a as f64, b) as usize * times <= box_vol,
+        GeometricalVolumes::Parallelepiped => parallelepiped_volume(a, b, c) * times <= box_vol,
     }
 }
 
