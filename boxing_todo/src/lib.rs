@@ -120,7 +120,7 @@ mod tests {
         dbg!(match todos {
             Ok(list) => println!("{:?}", list),
             Err(e) => {
-                assert_eq!("Fail to parse todo Some(Malformed(UnexpectedCharacter { ch: ',', line: 2, column: 18 }))",
+                assert_eq!("Fail to parse todo Some(Malformed(UnexpectedCharacter { ch: '}', line: 4, column: 54 }))",
                     format!("{} {:?}", e.to_string(), e.source()));
             }
         });
