@@ -56,13 +56,13 @@ impl Error for ParseErr {
     fn source(&self) -> Option<&(dyn Error + 'static)> {
         match self {
             Empty  => None,
-            Malformed(err) => Some(err.as_ref()),
+            Malformed(_) => Some(self),
         }
     }
 }
 
 impl Error for ReadErr {
     fn source(&self) -> Option<&(dyn Error + 'static)> {
-        todo!()
+        Some(self)
     }
 }
