@@ -3,23 +3,23 @@ use json::object;
 pub struct Food {
     pub name: String,
     pub calories: [String; 2],
-    pub proteins: f32,
-    pub fats: f32,
-    pub carbs: f32,
-    pub nbr_of_portions: f32,
+    pub proteins: f64,
+    pub fats: f64,
+    pub carbs: f64,
+    pub nbr_of_portions: f64,
 }
 
-fn convert_to_kcal(calories: Vec<String>) -> Vec<f32> {
-    let mut kcal_values: Vec<f32> = Vec::new();
+fn convert_to_kcal(calories: Vec<String>) -> Vec<f64> {
+    let mut kcal_values: Vec<f64> = Vec::new();
 
     for cal in calories {
         if cal.contains("kJ") {
-            let value: f32 = cal.trim_end_matches("kJ").parse().unwrap();
+            let value: f64 = cal.trim_end_matches("kJ").parse().unwrap();
             let kcal = value / 4.184;
             kcal_values.push(kcal);
         } else if cal.contains("kcal") {
-            let value : f32 = cal.trim_end_matches("kcal").parse().unwrap();
-            kcal_values.push(0f32);
+            let value: f64 = cal.trim_end_matches("kcal").parse().unwrap();
+            kcal_values.push(0f64);
         }
     }
 
@@ -27,19 +27,26 @@ fn convert_to_kcal(calories: Vec<String>) -> Vec<f32> {
 }
 
 pub fn calculate_macros(foods: Vec<Food>) -> json::JsonValue {
-    foods.into_iter().fold(object! {
+    let res = foods.into_iter().fold(object! {
                 "cals": 0,
                 "carbs": 0,
                 "proteins": 0,
                 "fats": 0
     },|acc, food| {
        object! {
-           "cals" : acc["cals"].as_f32().unwrap() + convert_to_kcal(food.calories.to_vec()).iter().sum::<f32>() * food.nbr_of_portions,
-           "carbs" : acc["carbs"].as_f32().unwrap() + food.carbs * food.nbr_of_portions,
-           "proteins" : acc["proteins"].as_f32().unwrap() + food.proteins * food.nbr_of_portions,
-           "fats" : acc["fats"].as_f32().unwrap() + food.fats * food.nbr_of_portions,
+           "cals" : acc["cals"].as_f64().unwrap() + convert_to_kcal(food.calories.to_vec()).iter().sum::<f64>() * food.nbr_of_portions,
+           "carbs" : acc["carbs"].as_f64().unwrap() + food.carbs * food.nbr_of_portions,
+           "proteins" : acc["proteins"].as_f64().unwrap() + food.proteins * food.nbr_of_portions,
+           "fats" : acc["fats"].as_f64().unwrap() + food.fats * food.nbr_of_portions,
        }
-    })
+    });
+
+    object! {
+        "cals" : format!("{:.2}", res["cals"].as_f64().unwrap()).parse::<f64>().unwrap(),
+        "carbs" : format!("{:.2}", res["carbs"].as_f64().unwrap()).parse::<f64>().unwrap(),
+        "proteins" : format!("{:.2}", res["proteins"].as_f64().unwrap()).parse::<f64>().unwrap(),
+        "fats" : format!("{:.2}", res["fats"].as_f64().unwrap()).parse::<f64>().unwrap(),
+    }
 }
 
 #[cfg(test)]
@@ -68,22 +75,22 @@ mod tests {
         ];
 
         let res = calculate_macros(a);
-        assert_eq!(
-            format!("{:.2}", res["cals"].as_f32().unwrap()),
-            2777.39.to_string()
-        );
+      assert_eq!(
+         res["cals"].as_f32().unwrap(),
+          2777.39
+      );
 
         assert_eq!(
-            format!("{:.2}", res["carbs"].as_f32().unwrap()),
-            322.44.to_string()
+            res["carbs"].as_f32().unwrap(),
+            322.44
         );
         assert_eq!(
-            format!("{:.2}", res["proteins"].as_f32().unwrap()),
-            122.06.to_string()
+            res["proteins"].as_f32().unwrap(),
+            122.06
         );
         assert_eq!(
-            format!("{:.2}", res["fats"].as_f32().unwrap()),
-            106.93.to_string()
+             res["fats"].as_f32().unwrap(),
+            106.93
         );
     }
 }
