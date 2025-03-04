@@ -1,5 +1,5 @@
-use crate::areas_volumes::{GeometricalShapes, GeometricalVolumes};
-use std::f32::consts::PI;
+pub use crate::areas_volumes::{GeometricalShapes, GeometricalVolumes};
+pub use std::f32::consts::PI;
 
 pub mod areas_volumes;
 
@@ -51,18 +51,10 @@ pub fn volume_fit(
     let box_vol = x * y * z;
     match objects {
         GeometricalVolumes::Cube => a.pow(3) * times <= box_vol,
-        GeometricalVolumes::Sphere => {
-            (4.0 / 3.0 * PI) as usize * a.pow(3) * times <= box_vol
-        }
-        GeometricalVolumes::Cone => {
-            (1.0 / 3.0 * PI) as usize * a * b.pow(2) * times <= box_vol
-        }
-        GeometricalVolumes::Pyramid => {
-            (a * b * c * 1 / 3 ) * times <= box_vol
-        }
-        GeometricalVolumes::Parallelepiped => {
-            a * b * c * times <= box_vol
-        }
+        GeometricalVolumes::Sphere => (4.0 / 3.0 * PI) as usize * a.pow(3) * times <= box_vol,
+        GeometricalVolumes::Cone => (1.0 / 3.0 * PI) as usize * a * b.pow(2) * times <= box_vol,
+        GeometricalVolumes::Pyramid => (a * b * c * 1 / 3) * times <= box_vol,
+        GeometricalVolumes::Parallelepiped => a * b * c * times <= box_vol,
     }
 }
 
@@ -74,6 +66,9 @@ mod tests {
     fn it_works() {
         assert!(area_fit(2, 4, GeometricalShapes::Rectangle, 100, 2, 1).not());
         assert!(area_fit(5, 5, GeometricalShapes::Triangle, 3, 5, 3));
+    }
+    #[test]
+    fn it_works_2() {
         assert!(volume_fit(5, 5, 5, GeometricalVolumes::Sphere, 3, 2, 0, 0));
         assert!(volume_fit(
             5,
