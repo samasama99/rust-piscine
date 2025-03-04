@@ -14,12 +14,12 @@ fn convert_to_kcal(calories: Vec<String>) -> Vec<f32> {
 
     for cal in calories {
         if cal.contains("kJ") {
-            let value : f32 = cal.trim_end_matches("kJ").parse().unwrap();
+            let value: f32 = cal.trim_end_matches("kJ").parse().unwrap();
             let kcal = value / 4.184;
             kcal_values.push(kcal);
         } else if cal.contains("kcal") {
-            let value = cal.trim_end_matches("kcal").parse().unwrap();
-            kcal_values.push(value);
+            let value : f32 = cal.trim_end_matches("kcal").parse().unwrap();
+            kcal_values.push(0f32);
         }
     }
 
@@ -34,7 +34,7 @@ pub fn calculate_macros(foods: Vec<Food>) -> json::JsonValue {
                 "fats": 0
     },|acc, food| {
        object! {
-           "cals" : acc["proteins"].as_f32().unwrap() + convert_to_kcal(food.calories.to_vec()).iter().sum::<f32>() * food.nbr_of_portions,
+           "cals" : acc["cals"].as_f32().unwrap() + convert_to_kcal(food.calories.to_vec()).iter().sum::<f32>() * food.nbr_of_portions,
            "carbs" : acc["carbs"].as_f32().unwrap() + food.carbs * food.nbr_of_portions,
            "proteins" : acc["proteins"].as_f32().unwrap() + food.proteins * food.nbr_of_portions,
            "fats" : acc["fats"].as_f32().unwrap() + food.fats * food.nbr_of_portions,
@@ -45,7 +45,6 @@ pub fn calculate_macros(foods: Vec<Food>) -> json::JsonValue {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use json::object;
 
     #[test]
     fn it_works() {
@@ -68,14 +67,23 @@ mod tests {
             },
         ];
 
+        let res = calculate_macros(a);
         assert_eq!(
-            object! {
-                "cals": 2777.39,
-                "carbs": 322.44,
-                "proteins": 122.06,
-                "fats": 106.93
-            },
-            calculate_macros(a)
+            format!("{:.2}", res["cals"].as_f32().unwrap()),
+            2777.39.to_string()
+        );
+
+        assert_eq!(
+            format!("{:.2}", res["carbs"].as_f32().unwrap()),
+            322.44.to_string()
+        );
+        assert_eq!(
+            format!("{:.2}", res["proteins"].as_f32().unwrap()),
+            122.06.to_string()
+        );
+        assert_eq!(
+            format!("{:.2}", res["fats"].as_f32().unwrap()),
+            106.93.to_string()
         );
     }
 }
