@@ -10,8 +10,8 @@ impl Mall {
     pub fn new(name: &str, guards: Vec<guard::Guard>, floors: Vec<floor::Floor>) -> Mall {
         Mall {
             name: name.to_string(),
-            guards: guards,
-            floors: floors,
+            guards,
+            floors,
         }
     }
 
@@ -45,8 +45,8 @@ pub mod guard {
         pub fn new(name: &str, age: u8, years_experience: u8) -> Guard {
             Guard {
                 name: name.to_string(),
-                age: age,
-                years_experience: years_experience,
+                age,
+                years_experience,
             }
         }
     }
@@ -66,7 +66,7 @@ pub mod floor {
         pub fn new(name: &str, stores: Vec<store::Store>, store_limit: u64) -> Floor {
             Floor {
                 name: name.to_string(),
-                stores: stores,
+                stores,
                 size_limit: store_limit,
             }
         }
@@ -111,7 +111,7 @@ pub mod floor {
                 Store {
                     name: name.to_string(),
                     square_meters: space,
-                    employees: employees,
+                    employees,
                 }
             }
 
@@ -150,9 +150,9 @@ pub mod floor {
                 ) -> Employee {
                     Employee {
                         name: name.to_string(),
-                        age: age,
+                        age,
                         working_hours: (entry_hour, exit_hour),
-                        salary: salary,
+                        salary,
                     }
                 }
 
