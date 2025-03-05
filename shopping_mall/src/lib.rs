@@ -11,11 +11,12 @@
 //     cut_or_raise: receives a Mall. For each employee, the salary will be raised by 10% if they work more than 10 hours,
 //                  else their salary will be decreased by 10%. You can consider that guards are not employees of the mall.
 
-use crate::mall::floor::store;
-use crate::mall::floor::store::employee::Employee;
-use crate::mall::floor::store::Store;
-use crate::mall::guard::Guard;
-use crate::mall::{floor, Mall};
+pub mod mall;
+pub use crate::mall::floor::store;
+pub use crate::mall::floor::store::employee::Employee;
+pub use crate::mall::floor::store::Store;
+pub use crate::mall::guard::Guard;
+pub use crate::mall::{floor, Mall};
 
 pub fn cut_or_raise(mall: &mut Mall) {
     let (mut need_a_raise, mut nope): (Vec<&mut Employee>, Vec<&mut Employee>) = mall
@@ -89,7 +90,6 @@ pub fn biggest_store(mall: Mall) -> Store {
         .unwrap()
 }
 
-mod mall;
 
 #[allow(dead_code)]
 fn main() {
