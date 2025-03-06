@@ -11,7 +11,7 @@
 //     cut_or_raise: receives a Mall. For each employee, the salary will be raised by 10% if they work more than 10 hours,
 //                  else their salary will be decreased by 10%. You can consider that guards are not employees of the mall.
 
-// pub mod mall;
+pub mod mall;
 pub use crate::mall::floor::store;
 pub use crate::mall::floor::store::employee::Employee;
 pub use crate::mall::floor::store::Store;
