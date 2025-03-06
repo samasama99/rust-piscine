@@ -14,7 +14,7 @@
 use mall::{floor::store::{employee::Employee, Store}, guard::Guard};
 pub use mall::Mall;
 
-mod mall {
+pub mod mall {
 
     #[derive(Debug, Clone, PartialEq)]
     pub struct Mall {
