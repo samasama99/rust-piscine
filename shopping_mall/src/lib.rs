@@ -13,6 +13,10 @@
 
 pub use floor::store::{employee::Employee, Store};
 pub use guard::Guard;
+use mall::Mall;
+
+mod mall {
+    use crate::{floor, guard};
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Mall {
@@ -45,6 +49,7 @@ impl Mall {
     pub fn fire_guard(&mut self, name: String) {
         self.guards.retain(|x| x.name != name);
     }
+}
 }
 
 pub mod guard {
