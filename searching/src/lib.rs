@@ -7,7 +7,7 @@
 // Expected functions
 
 pub fn search(array: &[i32], key: i32) -> Option<usize> {
-    todo!()
+    array.iter().position(|&e| e == key)
 }
 
 #[cfg(test)]
@@ -18,6 +18,6 @@ mod tests {
     fn it_works() {
         let ar = [1, 3, 4, 6, 8, 9, 11];
         let f = search(&ar, 6);
-        assert_eq!(6, f.unwrap());
+        assert_eq!(Some(3), f);
     }
 }
