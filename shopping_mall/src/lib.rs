@@ -11,10 +11,15 @@
 //     cut_or_raise: receives a Mall. For each employee, the salary will be raised by 10% if they work more than 10 hours,
 //                  else their salary will be decreased by 10%. You can consider that guards are not employees of the mall.
 
-use mall::{floor::store::{employee::Employee, Store}, guard::Guard};
-pub use mall::Mall;
+pub use mall::floor::store::employee::Employee;
+pub use mall::floor::store::Store;
 
 pub mod mall {
+
+    pub use self::floor::store::employee::Employee;
+    pub use self::floor::store::Store;
+    pub use self::floor::Floor;
+    pub use self::guard::Guard;
 
     #[derive(Debug, Clone, PartialEq)]
     pub struct Mall {
@@ -72,6 +77,9 @@ pub mod mall {
 
     pub mod floor {
 
+        pub use self::store::employee::Employee;
+        pub use self::store::Store;
+
         #[derive(Debug, Clone, PartialEq)]
         pub struct Floor {
             pub name: String,
@@ -115,6 +123,8 @@ pub mod mall {
         }
 
         pub mod store {
+
+            pub use self::employee::Employee;
 
             #[derive(Debug, Clone, PartialEq)]
             pub struct Store {
@@ -198,6 +208,10 @@ pub mod mall {
         }
     }
 }
+
+pub use mall::*;
+pub use mall::floor::*;
+pub use mall::floor::store::*;
 
 pub fn cut_or_raise(mall: &mut Mall) {
     let (mut need_a_raise, mut nope): (Vec<&mut Employee>, Vec<&mut Employee>) = mall
