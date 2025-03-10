@@ -11,6 +11,7 @@
 // It answers "Interesting" to anything else.
 
 pub fn talking(text: &str) -> &str {
+    dbg!(text);
     let text = text.trim();
     if text.is_empty() {
         "Just say something!"
