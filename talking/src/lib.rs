@@ -19,10 +19,10 @@ pub fn talking(text: &str) -> &str {
         .filter(|c| c.is_alphabetic())
         .all(|c| c.is_uppercase())
     {
-        if text.ends_with("!") {
-            "There is no need to yell, calm down!"
-        } else {
+        if text.ends_with("?") {
             "Quiet, I am thinking!"
+        } else {
+            "There is no need to yell, calm down!"
         }
     } else if text.ends_with("?") {
         "Sure."
