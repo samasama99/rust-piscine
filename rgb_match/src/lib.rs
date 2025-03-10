@@ -11,40 +11,45 @@ impl Color {
         Color { r, g, b, a }
     }
 
-    pub fn swap(mut self, first: char, second: char) -> Color {
-        match (first, second) {
-            ('r', 'g') | ('g', 'r') => {
-                let temp = self.r;
-                self.r = self.g;
-                self.g = temp;
-            }
-            ('r', 'b') | ('b', 'r') => {
-                let temp = self.r;
-                self.r = self.b;
-                self.b = temp;
-            }
-            ('r', 'a') | ('a', 'r') => {
-                let temp = self.r;
-                self.r = self.a;
-                self.a = temp;
-            }
-            ('g', 'b') | ('b', 'g') => {
-                let temp = self.g;
-                self.g = self.b;
-                self.b = temp;
-            }
-            ('g', 'a') | ('a', 'g') => {
-                let temp = self.g;
-                self.g = self.a;
-                self.a = temp;
-            }
-            ('b', 'a') | ('a', 'b') => {
-                let temp = self.b;
-                self.b = self.a;
-                self.a = temp;
-            }
-            _ => panic!("Invalid component"),
+    pub fn swap(mut self, first: u8, second: u8) -> Color {
+        if self.r == first && self.g == second {
+            self.r = second;
+            self.g = first;
+        } else if self.r == second && self.g == first {
+            self.r = first;
+            self.g = second;
+        } else if self.r == first && self.b == second {
+            self.r = second;
+            self.b = first;
+        } else if self.r == second && self.b == first {
+            self.r = first;
+            self.b = second;
+        } else if self.r == first && self.a == second {
+            self.r = second;
+            self.a = first;
+        } else if self.r == second && self.a == first {
+            self.r = first;
+            self.a = second;
+        } else if self.g == first && self.b == second {
+            self.g = second;
+            self.b = first;
+        } else if self.g == second && self.b == first {
+            self.g = first;
+            self.b = second;
+        } else if self.g == first && self.a == second {
+            self.g = second;
+            self.a = first;
+        } else if self.g == second && self.a == first {
+            self.g = first;
+            self.a = second;
+        } else if self.b == first && self.a == second {
+            self.b = second;
+            self.a = first;
+        } else if self.b == second && self.a == first {
+            self.b = first;
+            self.a = second;
         }
+
         self
     }
 }
