@@ -11,14 +11,14 @@
 // It answers "Interesting" to anything else.
 
 pub fn talking(text: &str) -> &str {
-    dbg!(text);
     let text = text.trim();
     if text.is_empty() {
         "Just say something!"
-    } else if text
-        .chars()
-        .filter(|c| c.is_alphabetic())
-        .all(|c| c.is_uppercase())
+    } else if text.chars().filter(|c| c.is_alphabetic()).count() > 0
+        && text
+            .chars()
+            .filter(|c| c.is_alphabetic())
+            .all(|c| c.is_uppercase())
     {
         if text.ends_with("?") {
             "Quiet, I am thinking!"
