@@ -5,8 +5,6 @@
 use std::collections::HashSet;
 
 pub fn is_pangram(s: &str) -> bool {
-    //s.chars().all(|c| c.is_ascii())
-    //&&
     s.chars()
         .filter(|c| c.is_alphabetic() && c.is_ascii())
         .map(|c| c.to_ascii_lowercase())
@@ -25,8 +23,8 @@ mod tests {
     fn it_works() {
         assert!(is_pangram("the quick brown fox jumps over the lazy dog!"));
         assert!(is_pangram("this is not a pangram!").not());
-        assert!(
-            is_pangram("Victor jagt zwölf Boxkämpfer quer über den großen Sylter Deich.").not()
-        );
+        assert!(is_pangram(
+            "Victor jagt zwölf Boxkämpfer quer über den großen Sylter Deich."
+        ));
     }
 }
