@@ -1,6 +1,7 @@
 use std::ops::Not;
 
-fn scytale_cipher(mut message: String, i: u32) -> String {
+pub fn scytale_cipher(message: String, i: u32) -> String {
+    let mut message = message;
     let mut chunks: Vec<Vec<_>> = Vec::new();
     for c in message.chars() {
         if let Some(last) = chunks.last_mut() {
@@ -20,7 +21,6 @@ fn scytale_cipher(mut message: String, i: u32) -> String {
             message.extend(vec![' '; i as usize - last.len()]);
         }
     }
-
 
     let mut not_empty = true;
     let mut res = vec![];
