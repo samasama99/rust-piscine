@@ -85,8 +85,8 @@ pub fn check_for_securities(mall: &mut Mall, guards: Vec<Guard>) {
             break;
         }
     }
-    dbg!(mall.guards.len());
-    exit(1);
+    // dbg!(mall.guards.len());
+    // exit(1);
 }
 
 pub fn highest_paid_employee(mall: Mall) -> Vec<Employee> {
