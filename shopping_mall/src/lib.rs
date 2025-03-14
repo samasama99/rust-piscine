@@ -49,18 +49,12 @@ pub fn check_for_securities(mall: &mut Mall, guards: Vec<Guard>) {
     //     .map(|stores| stores.map(|store| store.square_meters).sum::<u64>())
     // {
     //     let number_of_guards = mall.guards.len();
-    //     dbg!("***********");
-    //     dbg!(number_of_guards);
-    //     dbg!(surface);
     //     mall.guards.extend(
     //         guards
     //             .by_ref()
-    //             .take(dbg!(dbg!((surface as f64 / number_of_guards as f64) / 50.0).ceil()) as usize - 1),
+    //             .take(((surface as f64 / number_of_guards as f64) / 200.0).ceil() as usize - 1),
     //     )
     // }
-    // dbg!(mall.guards.len());
-    // exit(1);
-
 
     let mut guards = guards.into_iter();
     let total_surface: u64 = mall
