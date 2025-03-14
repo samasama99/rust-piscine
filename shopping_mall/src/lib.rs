@@ -11,6 +11,7 @@
 //     cut_or_raise: receives a Mall. For each employee, the salary will be raised by 10% if they work more than 10 hours,
 //                  else their salary will be decreased by 10%. You can consider that guards are not employees of the mall.
 
+use std::process::exit;
 pub use crate::mall::Mall;
 pub mod mall;
 pub use mall::floor::store::employee::*;
@@ -49,12 +50,17 @@ pub fn check_for_securities(mall: &mut Mall, guards: Vec<Guard>) {
     //     .map(|stores| stores.map(|store| store.square_meters).sum::<u64>())
     // {
     //     let number_of_guards = mall.guards.len();
+    //     dbg!("***********");
+    //     dbg!(number_of_guards);
+    //     dbg!(surface);
     //     mall.guards.extend(
     //         guards
     //             .by_ref()
-    //             .take(((surface as f64 / number_of_guards as f64) / 200.0).ceil() as usize),
+    //             .take(dbg!(dbg!((surface as f64 / number_of_guards as f64) / 50.0).ceil()) as usize - 1),
     //     )
     // }
+    // dbg!(mall.guards.len());
+    // exit(1);
 
     // // let total_surface: u64 = mall
     //     .floors
@@ -72,13 +78,15 @@ pub fn check_for_securities(mall: &mut Mall, guards: Vec<Guard>) {
         .map(|stores| stores.map(|store| store.square_meters).sum::<u64>())
         .sum();
 
-    while (total_surface as f64 / mall.guards.len() as f64).ceil() >= 200.0 {
+    while (total_surface as f64 / mall.guards.len() as f64).ceil() as usize - 1 > 140 {
         if let Some(guard) = guards.next() {
             mall.hire_guard(guard);
         } else {
             break;
         }
     }
+    dbg!(mall.guards.len());
+    exit(1);
 }
 
 pub fn highest_paid_employee(mall: Mall) -> Vec<Employee> {
