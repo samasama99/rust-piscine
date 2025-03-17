@@ -38,43 +38,12 @@ pub fn cut_or_raise(mall: &mut Mall) {
         .for_each(|e| e.salary -= e.salary * 0.1);
 }
 
-// TODO not working properly yet or there is a miss understanding in the subject (or bug)
 pub fn check_for_securities(mall: &mut Mall, guards: Vec<Guard>) {
-    // Doing both total surface and surface of every floor still cant add up to the number in the provided main
-    // let mut guards = guards.into_iter();
-    // for surface in mall
-    //     .floors
-    //     .iter()
-    //     .map(|floor| floor.stores.iter())
-    //     .map(|stores| stores.map(|store| store.square_meters).sum::<u64>())
-    // {
-    //     let number_of_guards = mall.guards.len();
-    //     mall.guards.extend(
-    //         guards
-    //             .by_ref()
-    //             .take(((surface as f64 / number_of_guards as f64) / 200.0).ceil() as usize - 1),
-    //     )
-    // }
+    let total_surface = mall.floors.iter().map(|f| f.size_limit).sum::<u64>();
 
-    let mut guards = guards.into_iter();
-    let total_surface: u64 = mall
-        .floors
-        .iter()
-        .map(|floor| floor.stores.iter())
-        .map(|stores| stores.map(|store| store.square_meters).sum::<u64>())
-        .sum();
+    let needed_guards = total_surface as usize / mall.guards.len() / 200;
 
-    while (total_surface as f64 / mall.guards.len() as f64).ceil() as usize - 1 > 200 {
-        if let Some(guard) = guards.next() {
-            mall.hire_guard(guard);
-        } else {
-            break;
-        }
-    }
-
-    // assert!(dbg!(total_surface) / dbg!(mall.guards.len()) as u64 <= 200)
-    // dbg!(mall.guards.len());
-    // exit(1);
+    mall.guards.extend(guards.into_iter().take(needed_guards));
 }
 
 pub fn highest_paid_employee(mall: Mall) -> Vec<Employee> {
