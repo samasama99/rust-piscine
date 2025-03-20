@@ -47,6 +47,9 @@ pub fn edit_distance(source: &str, target: &str) -> usize {
 }
 
 pub fn expected_variable(compared: &str, expected_string: &str) -> Option<String> {
+    if compared.len() == 0 || expected_string.len() == 0 {
+        return None;
+    }
     let compared = compared.to_lowercase();
     let expected_string = expected_string.to_lowercase();
     if !((&compared).to_snake() == compared) && !((&compared).to_camel() == compared) {
