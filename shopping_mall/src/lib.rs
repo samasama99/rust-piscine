@@ -41,9 +41,9 @@ pub fn cut_or_raise(mall: &mut Mall) {
 pub fn check_for_securities(mall: &mut Mall, guards: Vec<Guard>) {
     let total_surface = mall.floors.iter().map(|f| f.size_limit).sum::<u64>();
 
-    let needed_guards = total_surface as usize / mall.guards.len() / 200;
-
-    mall.guards.extend(guards.into_iter().take(needed_guards));
+    let needed_guards = total_surface as usize / 200;
+    mall.guards
+        .extend(guards.into_iter().take(needed_guards - mall.guards.len()));
 }
 
 pub fn highest_paid_employee(mall: Mall) -> Vec<Employee> {
