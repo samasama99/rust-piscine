@@ -47,11 +47,9 @@ pub fn edit_distance(source: &str, target: &str) -> usize {
 }
 
 pub fn expected_variable(compared: &str, expected_string: &str) -> Option<String> {
-    dbg!(compared);
-    dbg!(expected_string);
-    // if compared == expected_string {
-    //     return None;
-    // }
+    if compared.to_dashed() == expected_string {
+        return None;
+    }
 
     if compared.len() == 0 || expected_string.len() == 0 {
         return None;
@@ -82,6 +80,10 @@ mod tests {
 
     #[test]
     fn it_works() {
+        assert_eq!(
+            None,
+            expected_variable("do-not-use-dashes", "do-not-use-dashes")
+        );
         assert_eq!("100%", expected_variable("On_Point", "on_point").unwrap());
         assert_eq!("88%", expected_variable("soClose", "so_close").unwrap());
         assert_eq!(
