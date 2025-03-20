@@ -47,6 +47,10 @@ pub fn edit_distance(source: &str, target: &str) -> usize {
 }
 
 pub fn expected_variable(compared: &str, expected_string: &str) -> Option<String> {
+    dbg!(compared);
+    dbg!(expected_string);
+    println!("{}", compared);
+    println!("{}", expected_string);
     if compared.len() == 0 || expected_string.len() == 0 {
         return None;
     }
@@ -60,7 +64,7 @@ pub fn expected_variable(compared: &str, expected_string: &str) -> Option<String
             / expected_string.len() as f64
             * 100.0)
             .ceil() as usize;
-        if percentage < 50 {
+        if percentage <= 50 {
             None
         } else {
             Some(format!("{}%", percentage))
