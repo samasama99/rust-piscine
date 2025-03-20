@@ -47,6 +47,8 @@ pub fn edit_distance(source: &str, target: &str) -> usize {
 }
 
 pub fn expected_variable(compared: &str, expected_string: &str) -> Option<String> {
+    dbg!(compared);
+    dbg!(expected_string);
     if compared == expected_string {
         return None;
     }
