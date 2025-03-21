@@ -79,7 +79,7 @@ impl Mob {
             .map(|member| member.role.to_power())
             .sum::<usize>();
 
-        if total_1 > total_2 {
+        if total_1 >= total_2 {
             mob_members_2.pop().unwrap();
         } else {
             mob_members_1.pop().unwrap();
@@ -109,3 +109,288 @@ impl Mob {
         }
     }
 }
+
+// Compiling mobs v0.1.0 (/jail/solutions/mobs)
+// Compiling mobs_test v0.1.0 (/jail/tests/mobs_test)
+// Finished `test` profile [unoptimized + debuginfo] target(s) in 0.48s
+// Running unittests src/main.rs (tests/mobs_test/target/debug/deps/mobs_test-86ff66d5c255f062)
+//
+// running 8 tests
+// test test::create_boss_and_members ... ok
+// test test::member_get_promotion ... ok
+// test test::mob_conquer_city ... ok
+// test test::mob_attack ... FAILED
+// test test::mob_recruit ... ok
+// test test::mob_steal ... ok
+// test test::no_members_mob ... FAILED
+// test test::same_combat_power ... FAILED
+//
+// failures:
+//
+// ---- test::mob_attack stdout ----
+// [/jail/solutions/mobs/src/mobs.rs:59:9] &mob_members_1 = [
+// Member {
+// name: "Benny Eggs",
+// role: Soldier,
+// age: 28,
+// },
+// Member {
+// name: "Jhonny",
+// role: Associate,
+// age: 17,
+// },
+// Member {
+// name: "Greasy Thumb",
+// role: Soldier,
+// age: 30,
+// },
+// Member {
+// name: "No Finger",
+// role: Caporegime,
+// age: 32,
+// },
+// ]
+// [/jail/solutions/mobs/src/mobs.rs:60:9] &mob_members_2 = [
+// Member {
+// name: "Knuckles",
+// role: Soldier,
+// age: 25,
+// },
+// Member {
+// name: "Baldy Dom",
+// role: Caporegime,
+// age: 36,
+// },
+// Member {
+// name: "Crazy Joe",
+// role: Underboss,
+// age: 23,
+// },
+// ]
+// thread 'test::mob_attack' panicked at src/main.rs:119:9:
+// assertion `left == right` failed
+// error: test failed, to rerun pass `--bin mobs_test`
+// left: 4
+// right: 3
+// note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+//
+// ---- test::no_members_mob stdout ----
+// [/jail/solutions/mobs/src/mobs.rs:59:9] &mob_members_1 = [
+// Member {
+// name: "Knuckles",
+// role: Soldier,
+// age: 25,
+// },
+// Member {
+// name: "Baldy Dom",
+// role: Caporegime,
+// age: 36,
+// },
+// Member {
+// name: "Crazy Joe",
+// role: Underboss,
+// age: 23,
+// },
+// ]
+// [/jail/solutions/mobs/src/mobs.rs:60:9] &mob_members_2 = [
+// Member {
+// name: "Benny Eggs",
+// role: Soldier,
+// age: 28,
+// },
+// Member {
+// name: "Jhonny",
+// role: Associate,
+// age: 17,
+// },
+// Member {
+// name: "Greasy Thumb",
+// role: Soldier,
+// age: 30,
+// },
+// Member {
+// name: "No Finger",
+// role: Caporegime,
+// age: 32,
+// },
+// ]
+// [/jail/solutions/mobs/src/mobs.rs:59:9] &mob_members_1 = [
+// Member {
+// name: "Benny Eggs",
+// role: Soldier,
+// age: 28,
+// },
+// Member {
+// name: "Jhonny",
+// role: Associate,
+// age: 17,
+// },
+// Member {
+// name: "Greasy Thumb",
+// role: Soldier,
+// age: 30,
+// },
+// Member {
+// name: "No Finger",
+// role: Caporegime,
+// age: 32,
+// },
+// ]
+// [/jail/solutions/mobs/src/mobs.rs:60:9] &mob_members_2 = [
+// Member {
+// name: "Knuckles",
+// role: Soldier,
+// age: 25,
+// },
+// Member {
+// name: "Baldy Dom",
+// role: Caporegime,
+// age: 36,
+// },
+// Member {
+// name: "Crazy Joe",
+// role: Underboss,
+// age: 23,
+// },
+// ]
+// [/jail/solutions/mobs/src/mobs.rs:59:9] &mob_members_1 = [
+// Member {
+// name: "Knuckles",
+// role: Soldier,
+// age: 25,
+// },
+// Member {
+// name: "Baldy Dom",
+// role: Caporegime,
+// age: 36,
+// },
+// Member {
+// name: "Crazy Joe",
+// role: Underboss,
+// age: 23,
+// },
+// ]
+// [/jail/solutions/mobs/src/mobs.rs:60:9] &mob_members_2 = [
+// Member {
+// name: "Benny Eggs",
+// role: Soldier,
+// age: 28,
+// },
+// Member {
+// name: "Jhonny",
+// role: Associate,
+// age: 17,
+// },
+// Member {
+// name: "Greasy Thumb",
+// role: Soldier,
+// age: 30,
+// },
+// Member {
+// name: "No Finger",
+// role: Caporegime,
+// age: 32,
+// },
+// ]
+// [/jail/solutions/mobs/src/mobs.rs:59:9] &mob_members_1 = [
+// Member {
+// name: "Knuckles",
+// role: Soldier,
+// age: 25,
+// },
+// Member {
+// name: "Baldy Dom",
+// role: Caporegime,
+// age: 36,
+// },
+// Member {
+// name: "Crazy Joe",
+// role: Underboss,
+// age: 23,
+// },
+// ]
+// [/jail/solutions/mobs/src/mobs.rs:60:9] &mob_members_2 = [
+// Member {
+// name: "Benny Eggs",
+// role: Soldier,
+// age: 28,
+// },
+// Member {
+// name: "Jhonny",
+// role: Associate,
+// age: 17,
+// },
+// Member {
+// name: "Greasy Thumb",
+// role: Soldier,
+// age: 30,
+// },
+// Member {
+// name: "No Finger",
+// role: Caporegime,
+// age: 32,
+// },
+// ]
+// thread 'test::no_members_mob' panicked at src/main.rs:151:9:
+// assertion `left == right` failed
+// left: 4
+// right: 0
+//
+// ---- test::same_combat_power stdout ----
+// [/jail/solutions/mobs/src/mobs.rs:59:9] &mob_members_1 = [
+// Member {
+// name: "Benny Eggs",
+// role: Soldier,
+// age: 28,
+// },
+// Member {
+// name: "Jhonny",
+// role: Associate,
+// age: 17,
+// },
+// Member {
+// name: "Greasy Thumb",
+// role: Soldier,
+// age: 30,
+// },
+// Member {
+// name: "No Finger",
+// role: Caporegime,
+// age: 32,
+// },
+// Member {
+// name: "Stitches",
+// role: Associate,
+// age: 28,
+// },
+// ]
+// [/jail/solutions/mobs/src/mobs.rs:60:9] &mob_members_2 = [
+// Member {
+// name: "Knuckles",
+// role: Soldier,
+// age: 25,
+// },
+// Member {
+// name: "Baldy Dom",
+// role: Caporegime,
+// age: 36,
+// },
+// Member {
+// name: "Crazy Joe",
+// role: Underboss,
+// age: 23,
+// },
+// ]
+// thread 'test::same_combat_power' panicked at src/main.rs:139:9:
+// assertion `left == right` failed
+// left: 5
+// right: 4
+//
+//
+// failures:
+// test::mob_attack
+// test::no_members_mob
+// test::same_combat_power
+//
+// test result: FAILED. 5 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+//
