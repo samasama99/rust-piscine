@@ -57,10 +57,14 @@ impl Mob {
         let mob_members_2 = &mut mob.members;
         if mob_members_1.len() == 0 && mob_members_2.len() != 0 {
             mob.wealth += self.wealth;
+            self.wealth = 0;
             mob.cities.append(&mut self.cities);
         } else if mob_members_2.len() == 0 && mob_members_1.len() != 0 {
             self.wealth += mob.wealth;
+            mob.wealth = 0;
             self.cities.append(&mut mob.cities);
+        } else {
+            return;
         }
         let total_1 = mob_members_1
             .iter()
@@ -101,77 +105,3 @@ impl Mob {
         }
     }
 }
-
-// Compiling mobs v0.1.0 (/jail/solutions/mobs)
-// Compiling mobs_test v0.1.0 (/jail/tests/mobs_test)
-// error[E0308]: mismatched types
-// --> src/main.rs:95:19
-// |
-// 95 |         a.recruit("Rusty", 37);
-// |           ------- ^^^^^^^- help: try using a conversion method: `.to_string()`
-// |           |       |
-// |           |       expected `String`, found `&str`
-// |           arguments to this method are incorrect
-// |
-// note: method defined here
-// --> /jail/solutions/mobs/src/mobs.rs:27:12
-// |
-// 27 |     pub fn recruit(&mut self, name: String, age: u8) {
-//     |            ^^^^^^^
-//
-//     error[E0308]: mismatched types
-//         --> src/main.rs:136:19
-//         |
-//         136 |         a.recruit("Stitches", 28);
-//     |           ------- ^^^^^^^^^^- help: try using a conversion method: `.to_string()`
-//     |           |       |
-//     |           |       expected `String`, found `&str`
-//     |           arguments to this method are incorrect
-//         |
-//         note: method defined here
-//         --> /jail/solutions/mobs/src/mobs.rs:27:12
-//         |
-//         27  |     pub fn recruit(&mut self, name: String, age: u8) {
-//         |            ^^^^^^^
-//
-//         error[E0308]: mismatched types
-//             --> src/main.rs:164:41
-//             |
-//             164 |         b.conquer_city(vec![a.clone()], "Las Vegas".to_string(), 9);
-//         |           ------------                  ^^^^^^^^^^^^^^^^^^^^^^^ expected `&str`, found `String`
-//         |           |
-//             |           arguments to this method are incorrect
-//             |
-//             note: method defined here
-//             --> /jail/solutions/mobs/src/mobs.rs:93:12
-//             |
-//             93  |     pub fn conquer_city(&mut self, mobs: Vec<Mob>, city: &str, n: u8) {
-//             |            ^^^^^^^^^^^^
-//             help: try removing the method call
-//                 |
-//                 164 -         b.conquer_city(vec![a.clone()], "Las Vegas".to_string(), 9);
-//             164 +         b.conquer_city(vec![a.clone()], "Las Vegas", 9);
-//             |
-//
-//             error[E0308]: mismatched types
-//                 --> src/main.rs:167:41
-//                 |
-//                 167 |         a.conquer_city(vec![b.clone()], "Las Vegas".to_string(), 6);
-//             |           ------------                  ^^^^^^^^^^^^^^^^^^^^^^^ expected `&str`, found `String`
-//             |           |
-//                 |           arguments to this method are incorrect
-//                 |
-//                 note: method defined here
-//                 --> /jail/solutions/mobs/src/mobs.rs:93:12
-//                 |
-//                 93  |     pub fn conquer_city(&mut self, mobs: Vec<Mob>, city: &str, n: u8) {
-//                 |            ^^^^^^^^^^^^
-//                 help: try removing the method call
-//                     |
-//                     167 -         a.conquer_city(vec![b.clone()], "Las Vegas".to_string(), 6);
-//                 167 +         a.conquer_city(vec![b.clone()], "Las Vegas", 6);
-//                 |
-//
-//                 For more information about this error, try `rustc --explain E0308`.
-//                 error: could not compile `mobs_test` (bin "mobs_test" test) due to 4 previous errors
-//
