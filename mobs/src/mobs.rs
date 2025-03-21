@@ -67,22 +67,26 @@ impl Mob {
             self.wealth += mob.wealth;
             mob.wealth = 0;
             self.cities.append(&mut mob.cities);
-        } else {
+        } else if mob_members_1.len() == 0 && mob_members_2.len() == 0 {
             return;
-        }
-        let total_1 = mob_members_1
-            .iter()
-            .map(|member| member.role.to_power())
-            .sum::<usize>();
-        let total_2 = mob_members_2
-            .iter()
-            .map(|member| member.role.to_power())
-            .sum::<usize>();
-
-        if total_1 >= total_2 {
-            mob_members_2.pop().unwrap();
         } else {
-            mob_members_1.pop().unwrap();
+            let total_1 = mob_members_1
+                .iter()
+                .map(|member| member.role.to_power())
+                .sum::<usize>();
+            let total_2 = mob_members_2
+                .iter()
+                .map(|member| member.role.to_power())
+                .sum::<usize>();
+
+            if total_1 > total_2 {
+                mob_members_2.pop().unwrap();
+            } else {
+                mob_members_1.pop().unwrap();
+            }
+
+            dbg!(&mob_members_1);
+            dbg!(&mob_members_2);
         }
     }
 }
