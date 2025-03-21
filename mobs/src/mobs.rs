@@ -55,6 +55,10 @@ impl Mob {
     pub fn attack(&mut self, mob: &mut Mob) {
         let mob_members_1 = &mut self.members;
         let mob_members_2 = &mut mob.members;
+
+        dbg!(&mob_members_1);
+        dbg!(&mob_members_2);
+
         if mob_members_1.len() == 0 && mob_members_2.len() != 0 {
             mob.wealth += self.wealth;
             self.wealth = 0;
