@@ -15,7 +15,7 @@
 // Caporegime -> Underboss
 // new: accepts a name, role and age, returning a Member.
 
-#[derive(Debug)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum Role {
     Underboss,
     Caporegime,
@@ -23,7 +23,7 @@ pub enum Role {
     Associate,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct Member {
     pub name: String,
     pub role: Role,

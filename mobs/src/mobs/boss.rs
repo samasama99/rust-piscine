@@ -4,8 +4,7 @@
 // name: String
 // age: u8
 // new: an associated function which accepts a name and age, and returns a Boss.
-#[derive(Debug)]
-pub struct Boss {
+#[derive(Debug, Clone, PartialEq)]pub struct Boss {
     pub name: String,
     pub age: u8,
 }

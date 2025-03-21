@@ -1,4 +1,4 @@
-use mobs::{boss, member, Mob};
+use mobs::*;
 
 fn main() {
     let (mafia1, mafia2) = (
