@@ -38,13 +38,19 @@ pub fn spell(n: u64) -> String {
         100 => "one hundred".to_string(),
         101..=999 => format!("{} hundred {}", spell(n / 100), spell(n % 100)).to_string(),
         1000 => "one thousand".to_string(),
-        1001..=999999 => format!(
-            "{} thousand {} hundred {}",
-            spell(n / 1000),
-            spell(n / 100 % 10),
-            spell(n % 100)
-        )
-        .to_string(),
+        1001..=999999 => {
+            if n / 100 % 10 == 0 {
+                format!("{} thousand {}", spell(n / 1000), spell(n % 100)).to_string()
+            } else {
+                format!(
+                    "{} thousand {} hundred {}",
+                    spell(n / 1000),
+                    spell(n / 100 % 10),
+                    spell(n % 100)
+                )
+                .to_string()
+            }
+        }
         1_000_000 => "one million".to_string(),
         _ => unreachable!(),
     }
@@ -59,6 +65,7 @@ mod tests {
         assert_eq!("zero", spell(0));
         assert_eq!("eleven", spell(11));
         assert_eq!("three hundred forty-eight", spell(348));
+        assert_eq!("one thousand fifty-five", spell(1055));
         assert_eq!("nine thousand nine hundred ninety-six", spell(9996));
     }
 }
