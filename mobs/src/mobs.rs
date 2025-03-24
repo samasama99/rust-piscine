@@ -79,6 +79,7 @@ impl Mob {
                 .map(|member| member.role.to_power())
                 .sum::<usize>();
 
+            dbg!(total_1, total_2);
             if total_1 > total_2 {
                 mob_members_2.pop().unwrap();
             } else {
@@ -123,60 +124,13 @@ impl Mob {
 // test test::create_boss_and_members ... ok
 // test test::member_get_promotion ... ok
 // test test::mob_conquer_city ... ok
-// test test::mob_attack ... FAILED
-// test test::mob_recruit ... ok
+// test test::mob_attack ... ok
 // test test::mob_steal ... ok
+// test test::mob_recruit ... ok
+// test test::same_combat_power ... ok
 // test test::no_members_mob ... FAILED
-// test test::same_combat_power ... FAILED
 //
 // failures:
-//
-// ---- test::mob_attack stdout ----
-// [/jail/solutions/mobs/src/mobs.rs:59:9] &mob_members_1 = [
-// Member {
-// name: "Benny Eggs",
-// role: Soldier,
-// age: 28,
-// },
-// Member {
-// name: "Jhonny",
-// role: Associate,
-// age: 17,
-// },
-// Member {
-// name: "Greasy Thumb",
-// role: Soldier,
-// age: 30,
-// },
-// Member {
-// name: "No Finger",
-// role: Caporegime,
-// age: 32,
-// },
-// ]
-// [/jail/solutions/mobs/src/mobs.rs:60:9] &mob_members_2 = [
-// Member {
-// name: "Knuckles",
-// role: Soldier,
-// age: 25,
-// },
-// Member {
-// name: "Baldy Dom",
-// role: Caporegime,
-// age: 36,
-// },
-// Member {
-// name: "Crazy Joe",
-// role: Underboss,
-// age: 23,
-// },
-// ]
-// thread 'test::mob_attack' panicked at src/main.rs:119:9:
-// assertion `left == right` failed
-// error: test failed, to rerun pass `--bin mobs_test`
-// left: 4
-// right: 3
-// note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 //
 // ---- test::no_members_mob stdout ----
 // [/jail/solutions/mobs/src/mobs.rs:59:9] &mob_members_1 = [
@@ -218,6 +172,41 @@ impl Mob {
 // age: 32,
 // },
 // ]
+// [/jail/solutions/mobs/src/mobs.rs:88:13] &mob_members_1 = [
+// Member {
+// name: "Knuckles",
+// role: Soldier,
+// age: 25,
+// },
+// Member {
+// name: "Baldy Dom",
+// role: Caporegime,
+// age: 36,
+// },
+// Member {
+// name: "Crazy Joe",
+// role: Underboss,
+// age: 23,
+// },
+// error: test failed, to rerun pass `--bin mobs_test`
+// ]
+// [/jail/solutions/mobs/src/mobs.rs:89:13] &mob_members_2 = [
+// Member {
+// name: "Benny Eggs",
+// role: Soldier,
+// age: 28,
+// },
+// Member {
+// name: "Jhonny",
+// role: Associate,
+// age: 17,
+// },
+// Member {
+// name: "Greasy Thumb",
+// role: Soldier,
+// age: 30,
+// },
+// ]
 // [/jail/solutions/mobs/src/mobs.rs:59:9] &mob_members_1 = [
 // Member {
 // name: "Benny Eggs",
@@ -234,13 +223,37 @@ impl Mob {
 // role: Soldier,
 // age: 30,
 // },
-// Member {
-// name: "No Finger",
-// role: Caporegime,
-// age: 32,
-// },
 // ]
 // [/jail/solutions/mobs/src/mobs.rs:60:9] &mob_members_2 = [
+// Member {
+// name: "Knuckles",
+// role: Soldier,
+// age: 25,
+// },
+// Member {
+// name: "Baldy Dom",
+// role: Caporegime,
+// age: 36,
+// },
+// Member {
+// name: "Crazy Joe",
+// role: Underboss,
+// age: 23,
+// },
+// ]
+// [/jail/solutions/mobs/src/mobs.rs:88:13] &mob_members_1 = [
+// Member {
+// name: "Benny Eggs",
+// role: Soldier,
+// age: 28,
+// },
+// Member {
+// name: "Jhonny",
+// role: Associate,
+// age: 17,
+// },
+// ]
+// [/jail/solutions/mobs/src/mobs.rs:89:13] &mob_members_2 = [
 // Member {
 // name: "Knuckles",
 // role: Soldier,
@@ -285,15 +298,29 @@ impl Mob {
 // role: Associate,
 // age: 17,
 // },
+// ]
+// [/jail/solutions/mobs/src/mobs.rs:88:13] &mob_members_1 = [
 // Member {
-// name: "Greasy Thumb",
+// name: "Knuckles",
 // role: Soldier,
-// age: 30,
+// age: 25,
 // },
 // Member {
-// name: "No Finger",
+// name: "Baldy Dom",
 // role: Caporegime,
-// age: 32,
+// age: 36,
+// },
+// Member {
+// name: "Crazy Joe",
+// role: Underboss,
+// age: 23,
+// },
+// ]
+// [/jail/solutions/mobs/src/mobs.rs:89:13] &mob_members_2 = [
+// Member {
+// name: "Benny Eggs",
+// role: Soldier,
+// age: 28,
 // },
 // ]
 // [/jail/solutions/mobs/src/mobs.rs:59:9] &mob_members_1 = [
@@ -319,82 +346,33 @@ impl Mob {
 // role: Soldier,
 // age: 28,
 // },
+// ]
+// [/jail/solutions/mobs/src/mobs.rs:88:13] &mob_members_1 = [
 // Member {
-// name: "Jhonny",
-// role: Associate,
-// age: 17,
-// },
-// Member {
-// name: "Greasy Thumb",
+// name: "Knuckles",
 // role: Soldier,
-// age: 30,
+// age: 25,
 // },
 // Member {
-// name: "No Finger",
+// name: "Baldy Dom",
 // role: Caporegime,
-// age: 32,
+// age: 36,
+// },
+// Member {
+// name: "Crazy Joe",
+// role: Underboss,
+// age: 23,
 // },
 // ]
-// thread 'test::no_members_mob' panicked at src/main.rs:151:9:
+// [/jail/solutions/mobs/src/mobs.rs:89:13] &mob_members_2 = []
+// thread 'test::no_members_mob' panicked at src/main.rs:152:9:
 // assertion `left == right` failed
-// left: 4
+// left: 1
 // right: 0
-//
-// ---- test::same_combat_power stdout ----
-// [/jail/solutions/mobs/src/mobs.rs:59:9] &mob_members_1 = [
-// Member {
-// name: "Benny Eggs",
-// role: Soldier,
-// age: 28,
-// },
-// Member {
-// name: "Jhonny",
-// role: Associate,
-// age: 17,
-// },
-// Member {
-// name: "Greasy Thumb",
-// role: Soldier,
-// age: 30,
-// },
-// Member {
-// name: "No Finger",
-// role: Caporegime,
-// age: 32,
-// },
-// Member {
-// name: "Stitches",
-// role: Associate,
-// age: 28,
-// },
-// ]
-// [/jail/solutions/mobs/src/mobs.rs:60:9] &mob_members_2 = [
-// Member {
-// name: "Knuckles",
-// role: Soldier,
-// age: 25,
-// },
-// Member {
-// name: "Baldy Dom",
-// role: Caporegime,
-// age: 36,
-// },
-// Member {
-// name: "Crazy Joe",
-// role: Underboss,
-// age: 23,
-// },
-// ]
-// thread 'test::same_combat_power' panicked at src/main.rs:139:9:
-// assertion `left == right` failed
-// left: 5
-// right: 4
+// note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 //
 //
 // failures:
-// test::mob_attack
 // test::no_members_mob
-// test::same_combat_power
 //
-// test result: FAILED. 5 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
-//
+// test result: FAILED. 7 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
