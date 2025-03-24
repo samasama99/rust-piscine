@@ -56,20 +56,7 @@ impl Mob {
         let mob_members_1 = &mut self.members;
         let mob_members_2 = &mut mob.members;
 
-        dbg!(&mob_members_1);
-        dbg!(&mob_members_2);
-
-        if mob_members_1.len() == 0 && mob_members_2.len() != 0 {
-            mob.wealth += self.wealth;
-            self.wealth = 0;
-            mob.cities.append(&mut self.cities);
-        } else if mob_members_2.len() == 0 && mob_members_1.len() != 0 {
-            self.wealth += mob.wealth;
-            mob.wealth = 0;
-            self.cities.append(&mut mob.cities);
-        } else if mob_members_1.len() == 0 && mob_members_2.len() == 0 {
-            return;
-        } else {
+        if mob_members_1.len() != 0 && mob_members_2.len() != 0 {
             let total_1 = mob_members_1
                 .iter()
                 .map(|member| member.role.to_power())
@@ -79,15 +66,21 @@ impl Mob {
                 .map(|member| member.role.to_power())
                 .sum::<usize>();
 
-            dbg!(total_1, total_2);
             if total_1 > total_2 {
                 mob_members_2.pop().unwrap();
+                if mob_members_2.len() == 0 {
+                    self.wealth += mob.wealth;
+                    mob.wealth = 0;
+                    self.cities.append(&mut mob.cities);
+                }
             } else {
                 mob_members_1.pop().unwrap();
+                if mob_members_1.len() == 0 {
+                    mob.wealth += self.wealth;
+                    self.wealth = 0;
+                    mob.cities.append(&mut self.cities);
+                }
             }
-
-            dbg!(&mob_members_1);
-            dbg!(&mob_members_2);
         }
     }
 }
@@ -123,10 +116,10 @@ impl Mob {
 // running 8 tests
 // test test::create_boss_and_members ... ok
 // test test::member_get_promotion ... ok
-// test test::mob_conquer_city ... ok
 // test test::mob_attack ... ok
-// test test::mob_steal ... ok
+// test test::mob_conquer_city ... ok
 // test test::mob_recruit ... ok
+// test test::mob_steal ... ok
 // test test::same_combat_power ... ok
 // test test::no_members_mob ... FAILED
 //
@@ -172,7 +165,9 @@ impl Mob {
 // age: 32,
 // },
 // ]
-// [/jail/solutions/mobs/src/mobs.rs:88:13] &mob_members_1 = [
+// [/jail/solutions/mobs/src/mobs.rs:82:13] total_1 = 9
+// [/jail/solutions/mobs/src/mobs.rs:82:13] total_2 = 8
+// [/jail/solutions/mobs/src/mobs.rs:89:13] &mob_members_1 = [
 // Member {
 // name: "Knuckles",
 // role: Soldier,
@@ -182,15 +177,15 @@ impl Mob {
 // name: "Baldy Dom",
 // role: Caporegime,
 // age: 36,
-// },
-// Member {
-// name: "Crazy Joe",
-// role: Underboss,
-// age: 23,
-// },
 // error: test failed, to rerun pass `--bin mobs_test`
+// },
+// Member {
+// name: "Crazy Joe",
+// role: Underboss,
+// age: 23,
+// },
 // ]
-// [/jail/solutions/mobs/src/mobs.rs:89:13] &mob_members_2 = [
+// [/jail/solutions/mobs/src/mobs.rs:90:13] &mob_members_2 = [
 // Member {
 // name: "Benny Eggs",
 // role: Soldier,
@@ -241,7 +236,9 @@ impl Mob {
 // age: 23,
 // },
 // ]
-// [/jail/solutions/mobs/src/mobs.rs:88:13] &mob_members_1 = [
+// [/jail/solutions/mobs/src/mobs.rs:82:13] total_1 = 5
+// [/jail/solutions/mobs/src/mobs.rs:82:13] total_2 = 9
+// [/jail/solutions/mobs/src/mobs.rs:89:13] &mob_members_1 = [
 // Member {
 // name: "Benny Eggs",
 // role: Soldier,
@@ -253,7 +250,7 @@ impl Mob {
 // age: 17,
 // },
 // ]
-// [/jail/solutions/mobs/src/mobs.rs:89:13] &mob_members_2 = [
+// [/jail/solutions/mobs/src/mobs.rs:90:13] &mob_members_2 = [
 // Member {
 // name: "Knuckles",
 // role: Soldier,
@@ -299,7 +296,9 @@ impl Mob {
 // age: 17,
 // },
 // ]
-// [/jail/solutions/mobs/src/mobs.rs:88:13] &mob_members_1 = [
+// [/jail/solutions/mobs/src/mobs.rs:82:13] total_1 = 9
+// [/jail/solutions/mobs/src/mobs.rs:82:13] total_2 = 3
+// [/jail/solutions/mobs/src/mobs.rs:89:13] &mob_members_1 = [
 // Member {
 // name: "Knuckles",
 // role: Soldier,
@@ -316,7 +315,7 @@ impl Mob {
 // age: 23,
 // },
 // ]
-// [/jail/solutions/mobs/src/mobs.rs:89:13] &mob_members_2 = [
+// [/jail/solutions/mobs/src/mobs.rs:90:13] &mob_members_2 = [
 // Member {
 // name: "Benny Eggs",
 // role: Soldier,
@@ -347,7 +346,9 @@ impl Mob {
 // age: 28,
 // },
 // ]
-// [/jail/solutions/mobs/src/mobs.rs:88:13] &mob_members_1 = [
+// [/jail/solutions/mobs/src/mobs.rs:82:13] total_1 = 9
+// [/jail/solutions/mobs/src/mobs.rs:82:13] total_2 = 2
+// [/jail/solutions/mobs/src/mobs.rs:89:13] &mob_members_1 = [
 // Member {
 // name: "Knuckles",
 // role: Soldier,
@@ -364,7 +365,7 @@ impl Mob {
 // age: 23,
 // },
 // ]
-// [/jail/solutions/mobs/src/mobs.rs:89:13] &mob_members_2 = []
+// [/jail/solutions/mobs/src/mobs.rs:90:13] &mob_members_2 = []
 // thread 'test::no_members_mob' panicked at src/main.rs:152:9:
 // assertion `left == right` failed
 // left: 1
