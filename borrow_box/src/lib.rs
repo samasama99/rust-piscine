@@ -53,6 +53,7 @@ impl GameSession {
 
     pub fn update_score(&mut self, user_name: String) {
 
+        dbg!(&self);
         dbg!(&self.p1);
         dbg!(&self.p2);
 
