@@ -52,15 +52,18 @@ impl GameSession {
     }
 
     pub fn update_score(&mut self, user_name: String) {
-
-        dbg!(&self);
-        dbg!(&self.p1);
-        dbg!(&self.p2);
-
         let score_1 = self.p1.1;
         let score_2 = self.p2.1;
 
-        if score_1 == self.nb_games - 2 || score_2 == self.nb_games - 2 {
+        if self.nb_games == 0 {
+            return;
+        }
+
+        if self.nb_games == 1 && score_1 != score_2 {
+            return;
+        }
+
+        if self.nb_games >= 2 && (score_1 == self.nb_games - 2 || score_2 == self.nb_games - 2) {
             return;
         }
 
@@ -108,3 +111,75 @@ mod tests {
         // because the game was dropped, no longer exists on the heap
     }
 }
+
+// Compiling borrow_box v0.1.0 (/jail/solutions/borrow_box)
+// Compiling borrow_box_test v0.1.0 (/jail/tests/borrow_box_test)
+// Finished `test` profile [unoptimized + debuginfo] target(s) in 0.41s
+// Running unittests src/main.rs (tests/borrow_box_test/target/debug/deps/borrow_box_test-9d6889ba2283d851)
+
+// running 5 tests
+// test tests::test_create ... ok
+// test tests::test_delete ... ok
+// test tests::test_different_name ... ok
+// test tests::test_update_and_read ... FAILED
+// test tests::test_stop_updating ... FAILED
+
+// failures:
+
+// ---- tests::test_update_and_read stdout ----
+// [/jail/solutions/borrow_box/src/lib.rs:56:9] &self = GameSession {
+// id: 0,
+// p1: (
+// "player1",
+// 0,
+// ),
+// p2: (
+// "player2",
+// 0,
+// ),
+// nb_games: 1,
+// }
+// [/jail/solutions/borrow_box/src/lib.rs:57:9] &self.p1 = (
+// "player1",
+// 0,
+// )
+// [/jail/solutions/borrow_box/src/lib.rs:58:9] &self.p2 = (
+// "player2",
+// 0,
+// )
+
+// thread 'tests::test_update_and_read' panicked at /jail/solutions/borrow_box/src/lib.rs:63:23:
+// attempt to subtract with overflow
+
+// ---- tests::test_stop_updating stdout ----
+// [/jail/solutions/borrow_box/src/lib.rs:56:9] &self = GameSession {
+// id: 0,
+// p1: (
+// "player1",
+// 0,
+// ),
+// p2: (
+// "player2",
+// 0,
+// ),
+// nb_games: 1,
+// }
+// [/jail/solutions/borrow_box/src/lib.rs:57:9] &self.p1 = (
+// "player1",
+// 0,
+// )
+// [/jail/solutions/borrow_box/src/lib.rs:58:9] &self.p2 = (
+// "player2",
+// 0,
+// )
+
+// thread 'tests::test_stop_updating' panicked at /jail/solutions/borrow_box/src/lib.rs:63:23:
+// attempt to subtract with overflow
+// note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+// error: test failed, to rerun pass `--bin borrow_box_test`
+
+// failures:
+// tests::test_stop_updating
+// tests::test_update_and_read
+
+// test result: FAILED. 3 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
