@@ -52,6 +52,10 @@ impl GameSession {
     }
 
     pub fn update_score(&mut self, user_name: String) {
+
+        dbg!(&self.p1);
+        dbg!(&self.p2);
+
         let score_1 = self.p1.1;
         let score_2 = self.p2.1;
 
@@ -65,6 +69,7 @@ impl GameSession {
             self.p2.1 += 1;
         }
     }
+
     pub fn delete(self) -> String {
         format!("game deleted: id -> {}", self.id)
     }
