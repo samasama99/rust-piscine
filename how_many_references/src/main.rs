@@ -7,6 +7,11 @@ fn main() {
 
     let a1 = Rc::new(String::from("a"));
 
+    let a2 = a1.clone();
+    assert_eq!(a, a1);
+    assert!(!Rc::ptr_eq(&a, &a1));
+    assert!(Rc::ptr_eq(&a1, &a2));
+
     let mut new_node = Node::new(vec![a.clone()]);
     new_node.add_element(b.clone());
     new_node.add_element(a.clone());
