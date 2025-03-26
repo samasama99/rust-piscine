@@ -50,6 +50,6 @@ impl WorkEnvironment {
     pub fn last_worker(&self) -> Option<(String, String)> {
         self.grade
             .as_ref()
-            .map(|g| (g.role.to_owned(), g.name.to_owned()))
+            .map(|g| (g.name.to_owned(), g.role.to_owned()))
     }
 }
